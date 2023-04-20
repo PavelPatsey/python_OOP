@@ -30,11 +30,7 @@ class Graph:
         self.data = data
 
     def draw(self):
-        lst = []
-        for i in self.data:
-            if i >= self.LIMIT_Y[0] and i <= self.LIMIT_Y[1]:
-                lst.append(i)
-        print(*lst)
+        print(*filter(lambda x: self.LIMIT_Y[0] <= x <= self.LIMIT_Y[1], self.data))
 
 
 graph_1 = Graph()
