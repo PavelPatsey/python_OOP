@@ -16,7 +16,7 @@ class DataBase:
         (включительно) по их индексам (не id, а индексам списка); также учесть,
         что граница b может превышать длину списка.
         """
-        return self.lst_data[a: b + 1]
+        return self.lst_data[a : b + 1]
 
     def insert(self, data):
         """
