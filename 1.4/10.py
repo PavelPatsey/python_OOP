@@ -9,10 +9,10 @@ class Translator:
         если связка eng-rus уже существует, то второй раз ее добавлять не нужно,
         например:  add('go', 'идти'), add('go', 'идти');
         """
-        if eng in self.vocabulary and rus not in self.vocabulary[eng]:
-            self.vocabulary[eng].append(rus)
+        if eng in self.vocabulary:
+            self.vocabulary[eng].add(rus)
         else:
-            self.vocabulary[eng] = [rus]
+            self.vocabulary[eng] = {rus}
 
     def remove(self, eng):
         """
@@ -43,8 +43,5 @@ tr.add("go", "идти")
 tr.add("go", "ехать")
 tr.add("go", "ходить")
 tr.add("milk", "молоко")
-
-tr.add("go", "идти")
-
 tr.remove("car")
 print(" ".join(tr.translate("go")))
