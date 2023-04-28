@@ -41,7 +41,7 @@ class Ellipse(Figure):
 
 
 N = 217
-elements = [random.choice([Line, Rect, Ellipse]) for i in range(N)]
+elements = [random.choice((Line, Rect, Ellipse)) for i in range(N)]
 elements = [
     element(0, 0, 0, 0)
     if element == Line
