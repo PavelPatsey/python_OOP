@@ -22,22 +22,22 @@ P.S. На экран в программе ничего выводить не н
 import random
 
 
-class Line:
+class Figure:
     def __init__(self, x1, y1, x2, y2):
         self.sp = (x1, y1)
         self.ep = (x2, y2)
 
 
-class Rect:
-    def __init__(self, x1, y1, x2, y2):
-        self.sp = (x1, y1)
-        self.ep = (x2, y2)
+class Line(Figure):
+    pass
 
 
-class Ellipse:
-    def __init__(self, x1, y1, x2, y2):
-        self.sp = (x1, y1)
-        self.ep = (x2, y2)
+class Rect(Figure):
+    pass
+
+
+class Ellipse(Figure):
+    pass
 
 
 N = 217
