@@ -28,15 +28,12 @@ Sample Output:
 """
 
 
-def is_number(x):
-    return type(x) == int or type(x) == float
-
-
 class TriangleChecker:
     def __init__(self, a, b, c):
         self.a = a
         self.b = b
         self.c = c
+        self.sides = (a, b, c)
 
     def is_triangle(self):
         """
@@ -45,9 +42,9 @@ class TriangleChecker:
         2 - указанные числа a, b, c не могут являться длинами сторон треугольника;
         3 - стороны a, b, c образуют треугольник.
         """
-        if not all((is_number(self.a), is_number(self.b), is_number(self.c))):
+        if not all(map(lambda x: type(x) in (int, float), self.sides)):
             return 1
-        if not all((self.a >= 0, self.b >= 0, self.c >= 0)):
+        if not all(map(lambda x: x > 0, self.sides)):
             return 1
         if not all(
             (
