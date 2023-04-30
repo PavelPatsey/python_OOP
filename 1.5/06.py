@@ -45,49 +45,34 @@ class Graph:
         self.is_show = True
 
     def set_data(self, data):
-        """для передачи нового списка данных в текущий график"""
         self.data = data.copy()
 
     def _get_str_data(self):
         return " ".join(map(str, self.data))
 
-    def _show_closed_graph(self):
-        print("Отображение данных закрыто")
+    def check_is_show(func):
+        def wrapper(self):
+            if self.is_show:
+                return func(self)
+            else:
+                print("Отображение данных закрыто")
+                return
 
+        return wrapper
+
+    @check_is_show
     def show_table(self):
-        """
-        Для отображения данных в виде строки из списка чисел (числа следуют через пробел)
-        Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
-        """
-        if self.is_show:
-            print(self._get_str_data())
-        else:
-            self._show_closed_graph()
+        print(self._get_str_data())
 
+    @check_is_show
     def show_graph(self):
-        """
-        для отображения данных в виде графика (метод выводит в консоль сообщение:
-        "Графическое отображение данных: <строка из чисел следующих через пробел>")
-        Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
-        """
-        if self.is_show:
-            print(f"Графическое отображение данных: {self._get_str_data()}")
-        else:
-            self._show_closed_graph()
+        print(f"Графическое отображение данных: {self._get_str_data()}")
 
+    @check_is_show
     def show_bar(self):
-        """
-        для отображения данных в виде столбчатой диаграммы
-        (метод выводит в консоль сообщение: "Столбчатая диаграмма: <строка из чисел следующих через пробел>")
-        Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
-        """
-        if self.is_show:
-            print(f"Столбчатая диаграмма: {self._get_str_data()}")
-        else:
-            self._show_closed_graph()
+        print(f"Столбчатая диаграмма: {self._get_str_data()}")
 
     def set_show(self, fl_show):
-        """метод для изменения локального свойства is_show на переданное значение fl_show."""
         self.is_show = fl_show
 
 
