@@ -48,15 +48,21 @@ class Graph:
         """для передачи нового списка данных в текущий график"""
         self.data = data.copy()
 
+    def _get_str_data(self):
+        return " ".join(map(str, self.data))
+
+    def _show_closed_graph(self):
+        print("Отображение данных закрыто")
+
     def show_table(self):
         """
         Для отображения данных в виде строки из списка чисел (числа следуют через пробел)
         Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
         """
-        if self.is_show == True:
-            print(*self.data)
+        if self.is_show:
+            print(self._get_str_data())
         else:
-            print("Отображение данных закрыто")
+            self._show_closed_graph()
 
     def show_graph(self):
         """
@@ -64,10 +70,10 @@ class Graph:
         "Графическое отображение данных: <строка из чисел следующих через пробел>")
         Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
         """
-        if self.is_show == True:
-            print("Графическое отображение данных:", *self.data)
+        if self.is_show:
+            print(f"Графическое отображение данных: {self._get_str_data()}")
         else:
-            print("Отображение данных закрыто")
+            self._show_closed_graph()
 
     def show_bar(self):
         """
@@ -75,10 +81,10 @@ class Graph:
         (метод выводит в консоль сообщение: "Столбчатая диаграмма: <строка из чисел следующих через пробел>")
         Если локальное свойство is_show равно False, сообщение: "Отображение данных закрыто"
         """
-        if self.is_show == True:
-            print("Столбчатая диаграмма:", *self.data)
+        if self.is_show:
+            print(f"Столбчатая диаграмма: {self._get_str_data()}")
         else:
-            print("Отображение данных закрыто")
+            self._show_closed_graph()
 
     def set_show(self, fl_show):
         """метод для изменения локального свойства is_show на переданное значение fl_show."""
