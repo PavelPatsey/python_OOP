@@ -33,6 +33,4 @@ memory_2 = Memory("Kingston", 16)
 mb = MotherBoard("motherboard", cpu, memory_1, memory_2)
 
 # test
-lst = mb.get_config()
-for i in lst:
-    print(i)
+print("\n".join(mb.get_config()))
