@@ -22,13 +22,14 @@ class MotherBoard:
             f"Материнская плата: {self.name}",
             f"Центральный процессор: {self.cpu.name}, {self.cpu.fr}",
             f"Слотов памяти: {self.total_mem_slots}",
-            f"Память: " + "; ".join([f"{mem.name} - {mem.volume}" for mem in self.mem_slots])
+            f"Память: "
+            + "; ".join(map(lambda x: f"{x.name} - {x.volume}", self.mem_slots)),
         ]
 
 
-cpu = CPU("cpu_1", 3000)
-memory_1 = Memory("mem_1", 2)
-memory_2 = Memory("mem_2", 4)
+cpu = CPU("Intel", 3000)
+memory_1 = Memory("Kingston", 32)
+memory_2 = Memory("Kingston", 16)
 mb = MotherBoard("motherboard", cpu, memory_1, memory_2)
 
 # test
