@@ -11,25 +11,11 @@ class Memory:
 
 
 class MotherBoard:
-    def __init__(
-        self,
-        name,
-        cpu,
-        memory_1=None,
-        memory_2=None,
-        memory_3=None,
-        memory_4=None,
-    ):
+    def __init__(self, name, cpu, *mems):
         self.name = name
         self.cpu = cpu
         self.total_mem_slots = 4
-        self.memory_1 = memory_1
-        self.memory_2 = memory_2
-        self.memory_3 = memory_3
-        self.memory_4 = memory_4
-        self.mem_slots = [
-            x for x in [self.memory_1, self.memory_2, self.memory_3, self.memory_4] if x
-        ]
+        self.mem_slots = mems[:4]
 
     def get_config(self):
         return [
@@ -38,7 +24,6 @@ class MotherBoard:
             f"Слотов памяти: {self.total_mem_slots}",
             f"Память: " + "; ".join([f"{mem.name} - {mem.volume}" for mem in self.mem_slots])
         ]
-
 
 
 cpu = CPU("cpu_1", 3000)
