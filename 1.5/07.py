@@ -32,18 +32,13 @@ class MotherBoard:
         ]
 
     def get_config(self):
-        lst = [
+        return [
             f"Материнская плата: {self.name}",
             f"Центральный процессор: {self.cpu.name}, {self.cpu.fr}",
             f"Слотов памяти: {self.total_mem_slots}",
+            f"Память: " + "; ".join([f"{mem.name} - {mem.volume}" for mem in self.mem_slots])
         ]
-        memory_lst = []
-        for mem in self.mem_slots:
-            memory_lst.append(f"{mem.name} - {mem.volume}")
-        memory_str = "Память: " + "; ".join(memory_lst)
 
-        lst.append(memory_str)
-        return lst
 
 
 cpu = CPU("cpu_1", 3000)
