@@ -31,7 +31,7 @@ class Cart:
         self.goods.pop(indx)
 
     def get_list(self):
-        return list(map(lambda x: f"{x.name}: {x.price}", self.goods))
+        return [f"{good.name}: {good.price}" for good in self.goods]
 
 
 cart = Cart()
