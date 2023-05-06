@@ -53,6 +53,17 @@ class Cell:
 
 
 class GamePole:
+    DI_DJ = (
+        (1, 0),
+        (1, -1),
+        (0, -1),
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, 1),
+        (1, 1),
+    )
+
     def __init__(self, field_size, mines_number):
         self.field_size = field_size
         self.mines_number = mines_number
@@ -71,24 +82,13 @@ class GamePole:
         return pairs
 
     def _get_around_mines_number(self, i, j):
-        counter = 0
-        for di, dj in (
-            (1, 0),
-            (1, -1),
-            (0, -1),
-            (-1, -1),
-            (-1, 0),
-            (-1, 1),
-            (0, 1),
-            (1, 1),
-        ):
-            try:
-                if i + di >= 0 and j + dj >= 0:
-                    if self.pole[i + di][j + dj].mine:
-                        counter += 1
-            except:
-                pass
-        return counter
+        return sum(
+            (
+                self.pole[i + di][j + dj].mine
+                for di, dj in self.DI_DJ
+                if 0 <= i + di < self.field_size and 0 <= j + dj < self.field_size
+            )
+        )
 
     def init(self):
         mines_coordinates = self._get_mines_coordinates()
