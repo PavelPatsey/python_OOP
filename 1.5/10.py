@@ -38,7 +38,7 @@ import random
 
 
 class Cell:
-    def __init__(self, around_mines, mine):
+    def __init__(self, around_mines=0, mine=False):
         self.around_mines = around_mines
         self.mine = mine
         self.around_mines = around_mines
@@ -56,9 +56,7 @@ class GamePole:
     def __init__(self, field_size, mines_number):
         self.field_size = field_size
         self.mines_number = mines_number
-        self.pole = [
-            [Cell(0, False) for _ in range(field_size)] for _ in range(field_size)
-        ]
+        self.pole = [[Cell() for _ in range(field_size)] for _ in range(field_size)]
         self.init()
 
     def _get_random_pairs(self):
