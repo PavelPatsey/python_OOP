@@ -48,7 +48,7 @@ class Cell:
         if self.fl_open:
             if self.mine:
                 return "*"
-            return f"self.around_mines"
+            return f"{self.around_mines}"
         return "#"
 
 
@@ -59,27 +59,52 @@ class GamePole:
         self.pole = [
             [Cell(0, False) for _ in range(field_size)] for _ in range(field_size)
         ]
+        self.init()
 
     def _get_random_pairs(self):
         pairs = set()
         while len(pairs) < self.mines_number:
             pairs.add(
-                random.randint(0, self.field_size),
-                random.randint(0, self.field_size),
+                (
+                    random.randint(0, self.field_size),
+                    random.randint(0, self.field_size),
+                )
             )
+        return pairs
+
+    def _get_around_mines_number(self, i, j):
+        counter = 0
+        for di, dj in (
+            (1, 0),
+            (1, -1),
+            (0, -1),
+            (-1, -1),
+            (-1, 0),
+            (-1, 1),
+            (0, 1),
+            (1, 1),
+        ):
+            try:
+                if i + di >= 0 and j + dj >= 0:
+                    if self.pole[i + di][j + dj].mine:
+                        counter += 1
+            except:
+                pass
+        return counter
 
     def init(self):
-        """
-        инициализация поля с новой расстановкой M мин
-        (случайным образом по игровому полю, разумеется каждая мина должна находиться в отдельной клетке).
-        """
-        pass
+        mines_coordinates = self._get_random_pairs()
+        for i in range(self.field_size):
+            for j in range(self.field_size):
+                if (i, j) in mines_coordinates:
+                    self.pole[i][j].mine = True
+
+        for i in range(self.field_size):
+            for j in range(self.field_size):
+                if not self.pole[i][j].mine:
+                    self.pole[i][j].around_mines = self._get_around_mines_number(i, j)
 
     def show(self):
-        """
-        отображение поля в консоли в виде таблицы чисел открытых клеток (если клетка не открыта,
-        то отображается символ #).
-        """
         for i in range(self.field_size):
             print(" ".join(map(str, self.pole[i])))
 
