@@ -59,7 +59,7 @@ class GamePole:
         self.pole = [[Cell() for _ in range(field_size)] for _ in range(field_size)]
         self.init()
 
-    def _get_random_pairs(self):
+    def _get_mines_coordinates(self):
         pairs = set()
         while len(pairs) < self.mines_number:
             pairs.add(
@@ -91,7 +91,7 @@ class GamePole:
         return counter
 
     def init(self):
-        mines_coordinates = self._get_random_pairs()
+        mines_coordinates = self._get_mines_coordinates()
         for i in range(self.field_size):
             for j in range(self.field_size):
                 if (i, j) in mines_coordinates:
