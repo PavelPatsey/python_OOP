@@ -22,9 +22,8 @@ class Point:
         self.y = y
 
     def clone(self):
-        return self.__class__(self.x, self.y)
+        return self.__class__(**self.__dict__)
 
 
-x = y = 1
-pt = Point(x, y)
+pt = Point(1, 2)
 pt_clone = pt.clone()
