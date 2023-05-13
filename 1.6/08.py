@@ -38,16 +38,14 @@ class DialogLinux:
 class Dialog:
     def __new__(cls, *args, **kwargs):
         if TYPE_OS == 1:
-            obj = DialogWindows()
+            obj = super().__new__(DialogWindows)
         elif TYPE_OS == 2:
-            obj = DialogLinux()
+            obj = super().__new__(DialogLinux)
         else:
             return
         obj.name = args[0]
         return obj
 
 
-w = DialogWindows()
-breakpoint()
-
-dlg = Dialog("hui")
+# test
+dl = Dialog("name")
