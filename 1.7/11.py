@@ -51,8 +51,8 @@ class Viber:
 
     @classmethod
     def show_last_message(cls, number):
-        for key in cls.messages.keys()[-number:]:
-            print(cls.messages[key])
+        for value in cls.messages.values()[-number:]:
+            print(value)
 
     @classmethod
     def total_messages(cls):
