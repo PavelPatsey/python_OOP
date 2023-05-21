@@ -25,12 +25,13 @@ import re
 
 
 class CardCheck:
-    @staticmethod
-    def check_card_number(number):
-        pattern = r"^\d{4}-\d{4}-\d{4}-\d{4}$"
-        return bool(re.match(pattern, number))
+    CHECK_CARD_NUMBER_PATTERN = r"^\d{4}-\d{4}-\d{4}-\d{4}$"
+    CHECK_NAME_PATTERN = r"^[A-Z]+\s[A-Z]+$"
 
-    @staticmethod
-    def check_name(name):
-        pattern = r"^[A-Z]+\s[A-Z]+$"
-        return bool(re.match(pattern, name))
+    @classmethod
+    def check_card_number(cls, number):
+        return bool(re.match(cls.CHECK_CARD_NUMBER_PATTERN, number))
+
+    @classmethod
+    def check_name(cls, name):
+        return bool(re.match(cls.CHECK_NAME_PATTERN, name))
