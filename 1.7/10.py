@@ -32,16 +32,16 @@ class Application:
 
 class AppStore:
     def __init__(self):
-        self.applications = []
+        self.apps = dict()
 
     def add_application(self, app):
-        self.applications.append(app)
+        self.apps[id(app)] = app
 
     def remove_application(self, app):
-        self.applications.remove(app)
+        del self.apps[id(app)]
 
     def block_application(self, app):
         app.blocked = True
 
     def total_apps(self):
-        return len(self.applications)
+        return len(self.apps)
