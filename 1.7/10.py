@@ -31,19 +31,17 @@ class Application:
 
 
 class AppStore:
-    applications = list()
+    def __init__(self):
+        self.applications = []
 
-    @classmethod
-    def add_application(cls, app):
-        cls.applications.append(app)
+    def add_application(self, app):
+        self.applications.append(app)
 
-    @classmethod
-    def remove_application(cls, app):
-        cls.applications.remove(app)
+    def remove_application(self, app):
+        self.applications.remove(app)
 
     def block_application(self, app):
         app.blocked = True
 
-    @classmethod
-    def total_apps(cls):
-        return len(cls.applications)
+    def total_apps(self):
+        return len(self.applications)
