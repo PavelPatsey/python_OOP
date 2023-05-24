@@ -80,14 +80,14 @@ class Router:
         для присоединения сервера server (объекта класса Server) к роутеру (для простоты, каждый сервер соединен
         только с одним роутером).
         """
-        self.servers[id(server)] = server
+        self.servers[server.ip] = server
         server.router = self
 
     def unlink(self, server):
         """
         для отсоединения сервера server (объекта класса Server) от роутера
         """
-        del self.servers[id(server)]
+        del self.servers[server.ip]
         server.router = None
 
     def send_data(self):
@@ -99,7 +99,7 @@ class Router:
             for data in self.buffer:
                 if data.ip == server.ip:
                     server.buffer.append(data)
-        self.buffer = []
+        self.buffer.clear()
 
 
 class Server:
