@@ -109,17 +109,18 @@ class Server:
         cls.__counter_ip += 1
         return super().__new__(cls)
 
-    def __init__(self, router=None):
+    def __init__(self):
         self.buffer = []
         self.ip = self.__counter_ip
-        self.router = router
+        self.router = None
 
     def send_data(self, data):
         """
         для отправки информационного пакета data (объекта класса Data) с указанным IP-адресом получателя
         (пакет отправляется роутеру и сохраняется в его буфере - локальном свойстве buffer)
         """
-        self.router.buffer.append(data)
+        if self.router:
+            self.router.buffer.append(data)
 
     def get_data(self):
         """
@@ -127,7 +128,7 @@ class Server:
         то возвращается пустой список) и очищает входной буфер.
         """
         packets = copy.deepcopy(self.buffer)
-        self.buffer = []
+        self.buffer.clear()
         return packets
 
     def get_ip(self):
