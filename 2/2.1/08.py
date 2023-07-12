@@ -47,7 +47,7 @@ class Point:
 
 class Rectangle:
     def __init__(self, *args):
-        if len(args) == 4:
+        if len(args) == 4 and all(map(lambda x: isinstance(x, (int, float)), args)):
             x1, y1, x2, y2 = args
             self.__sp = Point(x1, y1)
             self.__ep = Point(x2, y2)
