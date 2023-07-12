@@ -47,7 +47,7 @@ class Point:
 
 class Rectangle:
     def __init__(self, *args):
-        if len(args) == 4 and map(args, isinstance()):
+        if len(args) == 4:
             x1, y1, x2, y2 = args
             self.__sp = Point(x1, y1)
             self.__ep = Point(x2, y2)
@@ -74,12 +74,12 @@ class Rectangle:
 rect = Rectangle(0, 0, 20, 34)
 
 # test
-rectangle = Rectangle(0, 0, 20, 34)
-print(rectangle.get_coords())
-rectangle.draw()
-
-point = Point(1, 1)
-print(point.get_coords())
-
-rectangle = Rectangle(point, point)
-print(rectangle.get_coords())
+# rectangle = Rectangle(0, 0, 20, 34)
+# print(rectangle.get_coords())
+# rectangle.draw()
+#
+# point = Point(1, 1)
+# print(point.get_coords())
+#
+# rectangle = Rectangle(point, point)
+# print(rectangle.get_coords())
