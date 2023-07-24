@@ -33,13 +33,13 @@ import string
 
 
 class EmailValidator:
-    def __new__(cls):
+    def __new__(cls, *args, **kwargs):
         return None
 
     @classmethod
     def get_random_email(cls):
         valid_characters = string.ascii_letters + string.digits + "._"
-        length = random.randint(1, 100)
+        length = random.randint(10, 20)
         random_str = "".join(random.choice(valid_characters) for _ in range(length))
         return random_str + "@gmail.com"
 
@@ -51,11 +51,10 @@ class EmailValidator:
     def check_email(cls, email):
         if cls.__is_email_str(email) is False:
             return False
-        if "@" not in email:
+        res = email.split("@")
+        if len(res) != 2:
             return False
-        if email.count("@") > 1:
-            return False
-        user, domain = email.split("@")
+        user, domain = res
         if len(user) > 100 or len(domain) > 50:
             return False
         if ".." in email:
