@@ -32,7 +32,6 @@ class Message:
 
 
 class Viber:
-
     messages = dict()
 
     @classmethod
