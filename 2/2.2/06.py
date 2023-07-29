@@ -68,9 +68,9 @@ class StackObj:
         return self.__data
 
     @data.setter
-    def data(self, data_obj):
-        if isinstance(data_obj, str):
-            self.__data = data_obj
+    def data(self, value):
+        if isinstance(value, str):
+            self.__data = value
 
 
 class Stack:
@@ -103,7 +103,7 @@ class Stack:
     def get_data(self):
         data = []
         current_obj = self.top
-        while current_obj is not None:
+        while current_obj:
             data.append(current_obj.data)
             current_obj = current_obj.next
         return data
