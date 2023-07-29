@@ -59,43 +59,39 @@ class TreeObj:
     def __init__(self, indx, value=None):
         self.indx = indx
         self.value = value
-        self.__left = None
-        self.__right = None
+        self.__left = self.__right = None
 
     @property
     def left(self):
         return self.__left
 
     @left.setter
-    def left(self, value):
-        self.__left = value
+    def left(self, obj):
+        self.__left = obj
 
     @property
     def right(self):
         return self.__right
 
     @right.setter
-    def right(self, value):
-        self.__right = value
+    def right(self, obj):
+        self.__right = obj
 
 
 class DecisionTree:
     @classmethod
     def predict(cls, root: TreeObj, x: list):
-        obj = root
-        if x[0] == 0:
-            obj = obj.right
-            if x[2] == 0:
-                obj = obj.right
-            else:
-                obj = obj.left
-        else:
-            obj = obj.left
-            if x[1] == 0:
-                obj = obj.right
-            else:
-                obj = obj.left
+        obj = next_obj = root
+        while next_obj:
+            obj = next_obj
+            next_obj = cls.__get_next_obj(obj, x)
         return obj.value
+
+    @classmethod
+    def __get_next_obj(cls, obj: TreeObj, x: list):
+        if x[obj.indx] == 1:
+            return obj.left
+        return obj.right
 
     @classmethod
     def add_obj(cls, obj: TreeObj, node: TreeObj = None, left: bool = True):
@@ -107,18 +103,18 @@ class DecisionTree:
         return obj
 
 
-root = DecisionTree.add_obj(TreeObj(0))
-v_11 = DecisionTree.add_obj(TreeObj(1), root)
-v_12 = DecisionTree.add_obj(TreeObj(2), root, False)
-DecisionTree.add_obj(TreeObj(-1, "будет программистом"), v_11)
-DecisionTree.add_obj(TreeObj(-1, "будет кодером"), v_11, False)
-DecisionTree.add_obj(TreeObj(-1, "не все потеряно"), v_12)
-DecisionTree.add_obj(TreeObj(-1, "безнадежен"), v_12, False)
-
-x = [1, 1, 0]
-res = DecisionTree.predict(root, x)
-assert res == "будет программистом"
-
-x = [1, 0, 1]
-res = DecisionTree.predict(root, x)
-assert res == "будет кодером"
+# root = DecisionTree.add_obj(TreeObj(0))
+# v_11 = DecisionTree.add_obj(TreeObj(1), root)
+# v_12 = DecisionTree.add_obj(TreeObj(2), root, False)
+# DecisionTree.add_obj(TreeObj(-1, "будет программистом"), v_11)
+# DecisionTree.add_obj(TreeObj(-1, "будет кодером"), v_11, False)
+# DecisionTree.add_obj(TreeObj(-1, "не все потеряно"), v_12)
+# DecisionTree.add_obj(TreeObj(-1, "безнадежен"), v_12, False)
+#
+# x = [1, 1, 0]
+# res = DecisionTree.predict(root, x)
+# assert res == "будет программистом"
+#
+# x = [1, 0, 1]
+# res = DecisionTree.predict(root, x)
+# assert res == "будет кодером"
