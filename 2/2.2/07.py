@@ -32,14 +32,14 @@ class RadiusVector2D:
     MIN_COORD = -100
     MAX_COORD = 1024
 
-    def _check_coordinate(self, coordinate):
-        return isinstance(coordinate, (int, float)) and self.MIN_COORD <= coordinate <= self.MAX_COORD
-
     def __init__(self, x=0, y=0):
-        self.__x = 0
-        self.__y = 0
+        self.__x = self.__y = 0
         self.x = x
         self.y = y
+
+    @classmethod
+    def __check_coordinate(cls, coordinate):
+        return isinstance(coordinate, (int, float)) and cls.MIN_COORD <= coordinate <= cls.MAX_COORD
 
     @property
     def x(self):
@@ -47,7 +47,7 @@ class RadiusVector2D:
 
     @x.setter
     def x(self, value):
-        if self._check_coordinate(value):
+        if self.__check_coordinate(value):
             self.__x = value
 
     @property
@@ -56,7 +56,7 @@ class RadiusVector2D:
 
     @y.setter
     def y(self, value):
-        if self._check_coordinate(value):
+        if self.__check_coordinate(value):
             self.__y = value
 
     @staticmethod
@@ -65,8 +65,9 @@ class RadiusVector2D:
 
 
 # test
-# v1 = RadiusVector2D()        # радиус-вектор с координатами (0; 0)
-# v2 = RadiusVector2D(1)       # радиус-вектор с координатами (1; 0)
-# v3 = RadiusVector2D(1, 2)    # радиус-вектор с координатами (1; 2)
+# v1 = RadiusVector2D()  # радиус-вектор с координатами (0; 0)
+# v2 = RadiusVector2D(1)  # радиус-вектор с координатами (1; 0)
+# v3 = RadiusVector2D(1, 2)  # радиус-вектор с координатами (1; 2)
+# print(v1.norm2(v3))
 # v4 = RadiusVector2D("1", 2)
 # print(v1.norm2(v4))
