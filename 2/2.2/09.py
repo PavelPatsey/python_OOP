@@ -11,8 +11,8 @@ x, y - для хранения координат конца линии (нач�
 Объекты класса PathLines должны создаваться командами:
 
 p = PathLines()                   # начало маршрута из точки 0, 0
-p = PathLines(line1, line2, ...)  # начало маршрута из точки 0, 0
-где line1, line2, ... - объекты класса LineTo.
+p = PathLines(line_1, line2, ...)  # начало маршрута из точки 0, 0
+где line_1, line2, ... - объекты класса LineTo.
 
 Сам же класс PathLines должен иметь следующие методы:
 
@@ -46,19 +46,18 @@ class LineTo:
 
 class PathLines:
     def __init__(self, *args):
-        self.lines = list(filter(lambda x: isinstance(x, LineTo), args))
+        self.lines = [LineTo(0, 0)]
+        self.lines.extend(list(filter(lambda x: isinstance(x, LineTo), args)))
 
     def get_path(self):
-        return self.lines
+        return self.lines[1:]
 
     @staticmethod
-    def _get_distance(line0: LineTo, line1: LineTo):
-        return math.sqrt((line1.x - line0.x) ** 2 + (line1.y - line0.y) ** 2)
+    def _get_distance(line_0: LineTo, line_1: LineTo):
+        return math.sqrt((line_1.x - line_0.x) ** 2 + (line_1.y - line_0.y) ** 2)
 
     def get_length(self):
-        return self._get_distance(LineTo(0, 0), self.lines[0]) + sum(
-            self._get_distance(self.lines[i - 1], self.lines[i]) for i in range(1, len(self.lines))
-        )
+        return sum(self._get_distance(self.lines[i - 1], self.lines[i]) for i in range(1, len(self.lines)))
 
     def add_line(self, line: LineTo):
         self.lines.append(line)
