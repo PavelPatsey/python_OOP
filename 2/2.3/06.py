@@ -1,130 +1,49 @@
 """
-Подвиг 6. Реализуйте односвязный список (не список Python, не использовать список Python для хранения объектов), когда один объект ссылается на следующий и так по цепочке до последнего:
+Видео-разбор подвига (решение смотреть только после своей попытки): https://youtu.be/xHINhSQJh5c
 
-Для этого объявите в программе два класса:
+Подвиг 6. Объявите дескриптор данных FloatValue, который бы устанавливал и возвращал вещественные значения. При записи вещественного числа должна выполняться проверка на вещественный тип данных. Если проверка не проходит, то генерировать исключение командой:
 
-StackObj - для описания объектов односвязного списка;
-Stack - для управления односвязным списком.
+raise TypeError("Присваивать можно только вещественный тип данных.")
 
-Объекты класса StackObj предполагается создавать командой:
+Объявите класс Cell, в котором создается объект value дескриптора FloatValue. А объекты класса Cell должны создаваться командой:
 
-obj = StackObj(данные)
+cell = Cell(начальное значение ячейки)
 
-Здесь данные - это строка с некоторым содержимым. Каждый объект класса StackObj должен иметь следующие локальные приватные атрибуты:
+Объявите класс TableSheet, с помощью которого создается таблица из N строк и M столбцов следующим образом:
 
-__data - ссылка на строку с данными, указанными при создании объекта;
-__next - ссылка на следующий объект класса StackObj (при создании объекта принимает значение None).
+table = TableSheet(N, M)
 
-Также в классе StackObj должны быть объявлены объекты-свойства:
+Каждая ячейка этой таблицы должна быть представлена объектом класса Cell, работать с вещественными числами через объект value (начальное значение должно быть 0.0).
 
-next - для записи и считывания информации из локального приватного свойства __next;
-data - для записи и считывания информации из локального приватного свойства __data.
+В каждом объекте класса TableSheet должен формироваться локальный атрибут:
 
-При записи необходимо реализовать проверку, что __next будет ссылаться на объект класса StackObj или значение None. Если проверка не проходит, то __next остается без изменений.
+cells - список (вложенный) размером N x M, содержащий ячейки таблицы (объекты класса Cell).
 
-Класс Stack предполагается использовать следующим образом:
+Создайте объект table класса TableSheet с размером таблицы N = 5, M = 3. Запишите в эту таблицу числа от 1.0 до 15.0 (по порядку).
 
-st = Stack() # создание объекта односвязного списка
-
-В объектах класса Stack должен быть локальный публичный атрибут:
-
-top - ссылка на первый добавленный объект односвязного списка (если список пуст, то top = None).
-
-А в самом классе Stack следующие методы:
-
-push(self, obj) - добавление объекта класса StackObj в конец односвязного списка;
-pop(self) - извлечение последнего объекта с его удалением из односвязного списка;
-get_data(self) - получение списка из объектов односвязного списка (список из строк локального атрибута __data каждого объекта в порядке их добавления, или пустой список, если объектов нет).
-
-Пример использования классов Stack и StackObj (эти строчки в программе писать не нужно):
-
-st = Stack()
-st.push(StackObj("obj1"))
-st.push(StackObj("obj2"))
-st.push(StackObj("obj3"))
-st.pop()
-res = st.get_data()    # ['obj1', 'obj2']
-
-P.S. В программе требуется объявить только классы. На экран ничего выводить не нужно.
+P.S. На экран в программе выводить ничего не нужно.
 """
 
 
-class StackObj:
-    def __init__(self, data):
-        self.__data = data
-        self.__next = None
+class FloatValue:
+    @classmethod
+    def __verify_value(cls, number):
+        if not isinstance(number, float):
+            raise TypeError("Присваивать можно только вещественный тип данных.")
 
-    @property
-    def next(self):
-        return self.__next
+    def __set_name__(self, owner, name):
+        self.name = name
 
-    @next.setter
-    def next(self, next_obj):
-        if isinstance(next_obj, StackObj) or next_obj is None:
-            self.__next = next_obj
+    def __set__(self, instance, value):
+        self.__verify_value(value)
+        setattr(instance, self.name, value)
 
-    @property
-    def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, value):
-        if isinstance(value, str):
-            self.__data = value
+    def __get__(self, instance, owner):
+        return getattr(instance, self.name)
 
 
-class Stack:
-    def __init__(self):
-        self.top = None
+class Cell:
+    value = FloatValue()
 
-    def push(self, obj):
-        if self.top is None:
-            self.top = obj
-        else:
-            current_obj = self.top
-            while current_obj.next is not None:
-                current_obj = current_obj.next
-            current_obj.next = obj
-
-    def pop(self):
-        if self.top is None:
-            popped_obj = None
-        elif self.top.next is None:
-            popped_obj = self.top
-            self.top = None
-        else:
-            current_obj = self.top
-            while current_obj.next.next is not None:
-                current_obj = current_obj.next
-            popped_obj = current_obj.next
-            current_obj.next = None
-        return popped_obj
-
-    def get_data(self):
-        data = []
-        current_obj = self.top
-        while current_obj:
-            data.append(current_obj.data)
-            current_obj = current_obj.next
-        return data
-
-
-# test
-# obj = StackObj("данные")
-# st = Stack()
-# st.push(StackObj("obj1"))
-# st.push(StackObj("obj2"))
-# st.push(StackObj("obj3"))
-# res = st.pop()
-# print(res.data)
-# res = st.get_data()  # ['obj1', 'obj2']
-# print(res)
-# assert res == ["obj1", "obj2"]
-# st.pop()
-# res = st.get_data()
-# print(res)
-# assert res == ["obj1"]
-# st.pop()
-# res = st.get_data()
-# print(res)
-# assert res == []
+    def __init__(self, value):
+        self.value = value
