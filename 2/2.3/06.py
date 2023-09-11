@@ -32,7 +32,7 @@ class FloatValue:
             raise TypeError("Присваивать можно только вещественный тип данных.")
 
     def __set_name__(self, owner, name):
-        self.name = name
+        self.name = "_" + name
 
     def __set__(self, instance, value):
         self.__verify_value(value)
@@ -45,5 +45,20 @@ class FloatValue:
 class Cell:
     value = FloatValue()
 
-    def __init__(self, value):
+    def __init__(self, value=0.0):
         self.value = value
+
+
+class TableSheet:
+    def __init__(self, n, m):
+        self.cells = [[Cell() for _ in range(m)] for _ in range(n)]
+
+
+N = 5
+M = 3
+table = TableSheet(N, M)
+n = 1.0
+for i in range(N):
+    for j in range(M):
+        table.cells[i][j] = n
+        n += 1.0
