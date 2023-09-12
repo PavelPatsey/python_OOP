@@ -57,8 +57,4 @@ class TableSheet:
 N = 5
 M = 3
 table = TableSheet(N, M)
-n = 1.0
-for i in range(N):
-    for j in range(M):
-        table.cells[i][j] = n
-        n += 1.0
+table.cells = [[Cell(float(i + 1 + j * M)) for i in range(M)] for j in range(N)]
