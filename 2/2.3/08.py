@@ -85,16 +85,33 @@ class PriceValue:
 
 
 class SuperShop:
-    pass
+    name = StringValue(validator=ValidateString())
+
+    def __init__(self, name):
+        self.name = name
+        self.goods = list()
+
+    def add_product(self, product):
+        self.goods.append(product)
+
+    def remove_product(self, product):
+        self.goods.remove(product)
 
 
 class Product:
-    pass
+    name = StringValue(validator=ValidateString())
+    price = PriceValue(validator=ValidatePrice())
+
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
 
 
 # test
-shop = SuperShop("У Балакирева")
-shop.add_product(Product("Курс по Python", 0))
-shop.add_product(Product("Курс по Python ООП", 2000))
-for p in shop.goods:
-    print(f"{p.name}: {p.price}")
+# shop = SuperShop("У Балакирева")
+# shop.add_product(Product("Курс по Python", 0))
+# shop.add_product(Product("Курс по Python ООП", 2000))
+# pr = Product("Курс по Django", 0)
+# shop.add_product(pr)
+# for p in shop.goods:
+#     print(f"{p.name}: {p.price}")
