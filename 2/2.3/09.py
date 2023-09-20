@@ -51,9 +51,6 @@ class Thing:
         if isinstance(weight, (int, float)):
             self.weight = weight
 
-    def get_weight(self):
-        return self.weight
-
 
 class Bag:
     def __init__(self, max_weight):
@@ -67,14 +64,14 @@ class Bag:
         return self.__things
 
     def add_thing(self, thing: Thing):
-        if thing.get_weight() + self.get_total_weight() <= self.max_weight:
+        if thing.weight + self.get_total_weight() <= self.max_weight:
             self.__things.append(thing)
 
     def remove_thing(self, indx):
         del self.__things[indx]
 
     def get_total_weight(self):
-        return sum(map(lambda x: x.get_weight(), self.__things))
+        return sum(map(lambda x: x.weight, self.__things))
 
 # test
 # bag = Bag(1000)
