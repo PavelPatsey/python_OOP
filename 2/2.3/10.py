@@ -103,9 +103,9 @@ class TVProgram:
             self.items.append(tl)
 
     def remove_telecast(self, indx):
-        tl = list(filter(lambda x: x.uid == indx, self.items))
-        if tl:
-            self.items.remove(tl[0])
+        tls = tuple(filter(lambda x: x.uid == indx, self.items))
+        for tl in tls:
+            self.items.remove(tl)
 
 # pr = TVProgram("Первый канал")
 # pr.add_telecast(Telecast(1, "Доброе утро", 10000))
