@@ -78,7 +78,7 @@ class Bag:
 # bag.add_thing(Thing("Книга по Python", 100))
 # bag.add_thing(Thing("Котелок", 500))
 # bag.add_thing(Thing("Спички", 20))
-# bag.add_thing(Thing("Бумага", 100))
+# bag.add_thing(Thing("Бумага", 100))!
 # w = bag.get_total_weight()
 # for t in bag.things:
 #     print(f"{t.name}: {t.weight}")
