@@ -25,6 +25,8 @@ P.S. На экран ничего выводить не нужно.
 
 
 class Book:
+    ATTRIBUTES = {"title": str, "author": str, "pages": int, "year": int}
+
     def __init__(self, title="", author="", pages=0, year=0):
         self.title = title
         self.author = author
@@ -32,8 +34,8 @@ class Book:
         self.year = year
 
     def __setattr__(self, key, value):
-        if key in ("title", "author") and isinstance(value, str) or key in ("pages", "year") and isinstance(value, int):
-            object.__setattr__(self, key, value)
+        if key in self.ATTRIBUTES and self.ATTRIBUTES[key] == type(value):
+            super.__setattr__(self, key, value)
         else:
             raise TypeError("Неверный тип присваиваемых данных.")
 
