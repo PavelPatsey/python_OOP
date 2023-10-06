@@ -51,7 +51,7 @@ class Product:
         cls.__id_counter += 1
         return super().__new__(cls)
 
-    def __init__(self, name="", weight=1, price=1):
+    def __init__(self, name, weight, price):
         self.id = self.__id_counter
         self.name = name
         self.weight = weight
