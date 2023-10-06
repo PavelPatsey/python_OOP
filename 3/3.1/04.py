@@ -45,14 +45,14 @@ P.S. На экран ничего выводить не нужно.
 
 
 class Product:
-    __counter = 0
+    __id_counter = 0
 
     def __new__(cls, *args, **kwargs):
-        cls.__counter += 1
+        cls.__id_counter += 1
         return super().__new__(cls)
 
     def __init__(self, name="", weight=1, price=1):
-        self.id = self.__counter
+        self.id = self.__id_counter
         self.name = name
         self.weight = weight
         self.price = price
