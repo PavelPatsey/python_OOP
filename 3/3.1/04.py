@@ -83,7 +83,8 @@ class Shop:
         self.goods.append(product)
 
     def remove_product(self, product):
-        self.goods.remove(product)
+        if product in self.goods:
+            self.goods.remove(product)
 
 
 # tests
