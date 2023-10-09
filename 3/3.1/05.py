@@ -90,26 +90,40 @@ class LessonItem:
             object.__delattr__(self, item)
 
 
-"""
-Объекты класса Module должны создаваться командой:
-
-module = Module(название модуля)
-Каждый объект класса Module должен содержать локальные атрибуты:
-
-name - название модуля;
-lessons - список из уроков (объектов класса LessonItem), входящих в модуль (изначально список пуст).
-
-Также в классе Module должны быть реализованы методы:
-
-add_lesson(self, lesson) - добавление в модуль (в конец списка lessons) нового урока (объекта класса LessonItem);
-remove_lesson(self, indx) - удаление урока по индексу в списке lessons.
-"""
-
-
 class Module:
     def __init__(self, name):
         self.name = name
         self.lessons = []
 
     def add_lesson(self, lesson):
-        self.lessons.append(lesson)
+        if isinstance(lesson, LessonItem):
+            self.lessons.append(lesson)
+
+    def remove_lesson(self, indx):
+        del self.lessons[indx]
+
+
+class Course:
+    def __init__(self, name):
+        self.name = name
+        self.modules = []
+
+    def add_module(self, module):
+        if isinstance(module, Module):
+            self.modules.append(module)
+
+    def remove_module(self, indx):
+        del self.modules[indx]
+
+
+# test
+course = Course("Python ООП")
+module_1 = Module("Часть первая")
+module_1.add_lesson(LessonItem("Урок 1", 7, 1000))
+module_1.add_lesson(LessonItem("Урок 2", 10, 1200))
+module_1.add_lesson(LessonItem("Урок 3", 5, 800))
+course.add_module(module_1)
+module_2 = Module("Часть вторая")
+module_2.add_lesson(LessonItem("Урок 1", 7, 1000))
+module_2.add_lesson(LessonItem("Урок 2", 10, 1200))
+course.add_module(module_2)
