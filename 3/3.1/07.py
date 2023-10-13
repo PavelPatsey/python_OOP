@@ -43,7 +43,7 @@ class SmartPhone:
         self.apps = []
 
     def add_app(self, app):
-        if all(map(lambda x: x.name != app.name, self.apps)):
+        if all(map(lambda x: type(x) != type(app), self.apps)):
             self.apps.append(app)
 
     def remove_app(self, app):
