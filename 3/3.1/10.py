@@ -65,15 +65,15 @@ class Filter:
     def __is_valid(cls, value):
         return isinstance(value, (int, float)) and value > 0
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, date):
+        self.date = date
 
     def __setattr__(self, key, value):
-        if key == "data" and "data" in self.__dict__:
+        if key == "date" and "date" in self.__dict__:
             return
-        elif key == "data" and self.__is_valid(value):
+        elif key == "date" and self.__is_valid(value):
             super().__setattr__(key, value)
-        elif key != "data":
+        elif key != "date":
             super().__setattr__(key, value)
         else:
             return
@@ -99,7 +99,7 @@ class GeyserClassic:
         self.filters = {}
 
     def add_filter(self, slot_num, filter):
-        if not slot_num in self.filters and isinstance(filter, self.ATTRIBUTES[slot_num]):
+        if slot_num not in self.filters and isinstance(filter, self.ATTRIBUTES[slot_num]):
             self.filters[slot_num] = filter
 
     def remove_filter(self, slot_num):
@@ -111,7 +111,9 @@ class GeyserClassic:
         return tuple(sorted_dict.values())
 
     def water_on(self):
-        return len(self.filters) == 3 and all(map(lambda x: 0 <= x.data <= self.MAX_DATE_FILTER, self.filters))
+        return len(self.filters) == 3 and all(
+            map(lambda x: 0 <= time.time() - x.date <= self.MAX_DATE_FILTER, self.filters.values())
+        )
 
 
 # tests
