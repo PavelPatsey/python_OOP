@@ -3,8 +3,7 @@ class ImageFileAcceptor:
         self.extensions = extensions
 
     def __call__(self, filename: str, *args, **kwargs):
-        extension = filename.strip().split(".")[-1]
-        return extension in self.extensions
+        return filename.endswith(self.extensions)
 
 
 filenames = [
