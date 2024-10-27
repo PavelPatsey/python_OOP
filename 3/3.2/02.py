@@ -9,10 +9,7 @@ class RandomPassword:
 
     def __call__(self, *args, **kwargs):
         password_length = randint(self.min_length, self.max_length)
-        password = ""
-        for _ in range(password_length):
-            password += choice(self.psw_chars)
-        return password
+        return "".join((choice(self.psw_chars) for _ in range(password_length)))
 
 
 min_length = 5
