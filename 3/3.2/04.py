@@ -37,7 +37,7 @@ class CharsValidator:
         self.allowed_characters = allowed_characters
 
     def __call__(self, field: str) -> bool:
-        return all((char in self.allowed_characters for char in set(field)))
+        return set(field).issubset(self.allowed_characters)
 
 
 lg = LoginForm(
