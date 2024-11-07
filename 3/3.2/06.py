@@ -4,9 +4,8 @@ class RenderList:
 
     def __call__(self, list_for_render):
         result = f"<{self.type_list}>\n"
-        for item in list_for_render:
-            result += f"<li>{item}</li>\n"
-        result += f"</{self.type_list}>\n"
+        result += "\n".join(f"<li>{item}</li>" for item in list_for_render)
+        result += f"\n</{self.type_list}>"
         return result
 
 
