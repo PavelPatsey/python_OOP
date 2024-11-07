@@ -3,10 +3,8 @@ class RenderList:
         self.type_list = "ol" if type_list == "ol" else "ul"
 
     def __call__(self, list_for_render):
-        result = f"<{self.type_list}>\n"
-        result += "\n".join(f"<li>{item}</li>" for item in list_for_render)
-        result += f"\n</{self.type_list}>"
-        return result
+        mapped = map(lambda x: f"<li>{x}</li>", list_for_render)
+        return "\n".join((f"<{self.type_list}>", *mapped, f"</{self.type_list}>"))
 
 
 lst = ["Пункт меню 1", "Пункт меню 2", "Пункт меню 3"]
