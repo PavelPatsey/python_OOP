@@ -1,5 +1,5 @@
 class Handler:
-    def __init__(self, methods=('GET',)):
+    def __init__(self, methods=("GET",)):
         self.methods = methods
 
     @staticmethod
@@ -13,18 +13,14 @@ class Handler:
     def __call__(self, func):
         def wrapper(request, *args, **kwargs):
             method = request.get("method", "GET")
-            if method not in self.methods:
-                return
-            elif method == "GET":
-                return self.get(func, request)
-            elif method == "POST":
-                return self.post(func, request)
+            if method in self.methods:
+                return self.__getattribute__(method.lower())(func, request)
             return
 
         return wrapper
 
 
-@Handler(methods=('GET', 'POST'))  # по умолчанию methods = ('GET',)
+@Handler(methods=("GET", "POST"))
 def contact(request):
     return "Сергей Балакирев"
 
@@ -42,9 +38,11 @@ print(index({"method": "GET"}))
 assert index({"method": "GET"}) == "GET: главная страница сайта"
 
 
-@Handler(methods=('POST',))
+@Handler(methods=("POST",))
 def index(request):
     return "главная страница сайта"
 
 
-assert index({"method": "GET"}) is None, "декорированная функция вернула неверные данные"
+assert (
+    index({"method": "GET"}) is None
+), "декорированная функция вернула неверные данные"
